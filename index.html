@@ -4,30 +4,25 @@
     <meta charset="UTF-8">
     <title>极简待办清单 · Wale Jojo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <link rel="stylesheet" href="./style/main.css">
 </head>
 <body>
-    <header>
+    <div class="container">
         <h1>📋 极简待办清单</h1>
-        <p>一个使用原生 HTML / CSS / JavaScript 制作的轻量待办工具。</p>
-        <p>功能：新增 / 删除 / 清空 / 自动保存本地数据。</p>
-        <p>本项目源码已开源，访问 👉 <a href="https://github.com/wale-jojo/todo-app" target="_blank">GitHub 仓库</a></p>
-    </header>
+        <p class="description">添加 / 删除 / 清空，数据本地自动保存</p>
 
-    <main>
-        <h2>📝 开始添加你的待办事项：</h2>
-        <input id="todo-input" type="text" placeholder="写点什么..." />
-        <button id="add-btn">添加</button>
-        <button id="clear-btn">清空全部</button>
+        <div class="input-group">
+            <input id="todo-input" type="text" placeholder="写下你的待办..." />
+            <button id="add-btn">添加</button>
+            <button id="clear-btn">清空</button>
+        </div>
 
         <ul id="todo-list"></ul>
-    </main>
 
-    <footer>
-        <p>© 2025 Wale Jojo · 极简作品练习项目</p>
-    </footer>
+        <footer>© 2025 Wale Jojo · 极简练习作品</footer>
+    </div>
 
-<script src="./js/main.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 </html>
+
