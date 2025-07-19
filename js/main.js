@@ -25,7 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
         list.appendChild(li);
     }
 
-    const saved = JSON.parse(localStorage.getItem("todos") || "[]");
+    let saved = JSON.parse(localStorage.getItem("todos") || "[]");
+
+    // 如果没有数据，自动添加默认项
+    if (saved.length === 0) {
+        saved = ["to do a small project"];
+    }
     saved.forEach(addTodo);
 
     addBtn.addEventListener("click", () => {
@@ -42,5 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
         saveTodos();
     });
 });
+
 
 
