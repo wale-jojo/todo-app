@@ -46,7 +46,18 @@ document.addEventListener("DOMContentLoaded", () => {
         list.innerHTML = "";
         saveTodos();
     });
-});document.getElementById('
+
+    // 新增：监听表单提交（回车）
+    document.getElementById("todo-form").addEventListener("submit", function(e) {
+        e.preventDefault(); // 阻止表单刷新
+        const text = input.value.trim();
+        if (text) {
+            addTodo(text);
+            saveTodos();
+            input.value = "";
+        }
+    });
+});
 
 
 
