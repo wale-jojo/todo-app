@@ -11,11 +11,12 @@
         <h1>📋 极简待办清单</h1>
         <p class="description">添加 / 删除 / 清空，数据本地自动保存</p>
 
-        <div class="input-group">
-            <input id="todo-input" type="text" placeholder="写下你的待办..." />
-            <button id="add-btn">添加</button>
-            <button id="clear-btn">清空</button>
-        </div>
+        <form class="input-group" autocomplete="off" id="todo-form">
+            <label for="todo-input" class="visually-hidden">待办事项</label>
+            <input id="todo-input" type="text" placeholder="写下你的待办..." autocomplete="off" />
+            <button id="add-btn" type="submit" aria-label="添加待办">添加</button>
+            <button id="clear-btn" type="button" aria-label="清空列表">清空</button>
+        </form>
 
         <ul id="todo-list"></ul>
 
@@ -23,6 +24,14 @@
     </div>
 
     <script src="./js/main.js"></script>
+    <style>
+    .visually-hidden {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+    }
+    </style>
 </body>
 </html>
-

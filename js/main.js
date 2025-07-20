@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
         list.innerHTML = "";
         saveTodos();
     });
-});
+});document.getElementById('
 
 
 
