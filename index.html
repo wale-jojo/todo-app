@@ -4,34 +4,102 @@
     <meta charset="UTF-8">
     <title>极简待办清单 · Wale Jojo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <link rel="stylesheet" href="./style/main.css">
+    <style>
+        .image-gallery {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 32px 0;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s;
+        }
+        .image-gallery.fullscreen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255,255,255,0.98);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .image-gallery img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+            border: 2px solid #eee;
+            background: #fff;
+            transition: transform 0.2s;
+        }
+        .image-gallery img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        }
+        .hide-on-image-hover {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📋 极简待办清单</h1>
-        <p class="description">添加 / 删除 / 清空，数据本地自动保存</p>
-
-        <form class="input-group" autocomplete="off" id="todo-form">
-            <label for="todo-input" class="visually-hidden">待办事项</label>
-            <input id="todo-input" type="text" placeholder="写下你的待办..." autocomplete="off" />
-            <button id="add-btn" type="submit" aria-label="添加待办">添加</button>
-            <button id="clear-btn" type="button" aria-label="清空列表">清空</button>
-        </form>
-
-        <ul id="todo-list"></ul>
-
-        <footer>© 2025 Wale Jojo · 极简练习作品</footer>
+    <div class="image-bg">
+        <img src="./image/00049-1453505850.png" alt="描述文本" id="main-img">
+        <div class="content-overlay" id="content-overlay">
+            <header>
+                <h1>📋 极简待办清单</h1>
+                <p>一个使用原生 HTML / CSS / JavaScript 制作的轻量待办工具。</p>
+                <p>功能：新增 / 删除 / 清空 / 自动保存本地数据。</p>
+                <p>源码 👉 <a href="https://github.com/wale-jojo/todo-app" target="_blank">GitHub 仓库</a></p>
+            </header>
+            <main>
+                <form id="todo-form">
+                    <input id="todo-input" type="text" placeholder="写点什么..." />
+                    <button id="add-btn" type="submit">添加</button>
+                    <button id="clear-btn" type="button">清空全部</button>
+                </form>
+                <ul id="todo-list"></ul>
+            </main>
+            <footer>
+                <p>© 2025 Wale Jojo · 极简作品练习项目</p>
+            </footer>
+        </div>
     </div>
-
     <script src="./js/main.js"></script>
-    <style>
-    .visually-hidden {
-        position: absolute;
-        left: -9999px;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-    }
-    </style>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const img = document.getElementById("main-img");
+        const imageBg = document.querySelector(".image-bg");
+        const overlay = document.getElementById("content-overlay");
+
+        // 原有的鼠标悬停效果
+        img.addEventListener("mouseenter", function() {
+            overlay.classList.add("semi-transparent");
+        });
+        overlay.addEventListener("mouseenter", function() {
+            overlay.classList.remove("semi-transparent");
+        });
+        img.addEventListener("mouseleave", function() {
+            overlay.classList.remove("semi-transparent");
+        });
+
+        // 新增点击全屏效果
+        img.addEventListener("click", function() {
+            imageBg.classList.add("fullscreen");
+            overlay.classList.add("hide-on-image-hover");
+        });
+
+        // ESC退出全屏
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape") {
+                imageBg.classList.remove("fullscreen");
+                overlay.classList.remove("hide-on-image-hover");
+            }
+        });
+    });
+    </script>
 </body>
 </html>

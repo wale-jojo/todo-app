@@ -5,13 +5,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const list = document.getElementById("todo-list");
 
     function saveTodos() {
-        const todos = Array.from(list.children).map(li => li.childNodes[0].textContent);
+        const todos = Array.from(list.children).map(li => ({
+            text: li.firstChild.textContent,
+            completed: li.classList.contains('completed')
+        }));
         localStorage.setItem("todos", JSON.stringify(todos));
     }
 
-    function addTodo(text) {
+    function addTodo(text, completed = false) {
         const li = document.createElement("li");
         li.textContent = text;
+        if (completed) li.classList.add('completed');
+
+        li.addEventListener("click", () => {
+            li.classList.toggle('completed');
+            saveTodos();
+        });
 
         const delBtn = document.createElement("button");
         delBtn.textContent = "❌";
@@ -26,14 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     let saved = JSON.parse(localStorage.getItem("todos") || "[]");
-
-    // 如果没有数据，自动添加默认项
     if (saved.length === 0) {
-        saved = ["to do a small project"];
+        saved = [{ text: "to do a small project", completed: false }];
     }
-    saved.forEach(addTodo);
+    saved.forEach(item => addTodo(item.text, item.completed));
 
-    addBtn.addEventListener("click", () => {
+    addBtn.addEventListener("click", (e) => {
+        e.preventDefault();
         const text = input.value.trim();
         if (text) {
             addTodo(text);
@@ -47,9 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
         saveTodos();
     });
 
-    // 新增：监听表单提交（回车）
     document.getElementById("todo-form").addEventListener("submit", function(e) {
-        e.preventDefault(); // 阻止表单刷新
+        e.preventDefault();
         const text = input.value.trim();
         if (text) {
             addTodo(text);
@@ -58,6 +65,3 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-
-
-
